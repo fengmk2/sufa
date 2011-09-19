@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta charset="utf-8" />
+	<title>sufa</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/seajs/sea.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="write-paper"></div>
+	<div>
+		<input id="clear" type="button" value="清空"></input>
+	</div>
+	<script type = 'text/javascript'>		
+		(function(){
+			seajs.config({
+			  base: './js/',
+			  alias: {
+				'jquery': 'third/jquery-1.6.2.js'
+			  },
+			  charset: 'utf-8',
+			  timeout: 20000,
+			  debug: 1
+			});
+
+			seajs.use(['jquery' , 'sufa/Writer'], function($ , Writer) {
+				var writer = new Writer('#write-paper',{});
+				writer.initialize();
+
+				$('#clear').click(function(){
+					writer.clear();
+				});
+			});
+		})();
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,47 @@
+body {
+	overflow:hidden;
+}
+
+div.sufa * {
+	z-index : 2;
+}
+
+div.sufa {
+	margin:0px auto;
+	position: relative;
+}
+
+div.sufa div.stage {
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+
+div.sufa canvas.layer {
+	z-index : 3;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+
+div.sufa canvas.writer {
+	z-index : 4;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+
+div.sufa canvas.hand {
+	z-index : 6;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+
+div.sufa .hand-image-wrapper {
+	z-index : 5;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+	width : 410px;
+}
