@@ -36,7 +36,7 @@ define(function(require , exports , module){
 		this.isLocked = false;
 	}
 
-	StrokeManager.prototype.selectBrush = function (brushName) {
+	StrokeManager.prototype.selectBrush = function (brushName , color) {
 		/// <summary>Select a brush.</summary>
 		if (this.isLocked) return;
 
@@ -47,7 +47,13 @@ define(function(require , exports , module){
 			D: brushName
 		});
 
-		return this.strokeEngine.selectBrush(brushName);
+		return this.strokeEngine.selectBrush(brushName , color);
+	}
+
+	StrokeManager.prototype.selectBrushColor = function (color) {
+		if (this.isLocked) return;
+		this.endStroke();
+		return this.strokeEngine.selectBrushColor(color);
 	}
 
 	StrokeManager.prototype.getCurrentBrush = function () {

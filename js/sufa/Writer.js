@@ -12,6 +12,7 @@
 							'<canvas id="<%=layerCanvas%>" class="layer" width="<%=width%>" height="<%=height%>"></canvas>',
 							'<canvas id="<%=writeCanvas%>" class="writer" width="<%=width%>" height="<%=height%>"></canvas>',
 							'<canvas id="<%=handCanvas%>" class="hand" width="<%=width%>" height="<%=height%>"></canvas>',	
+							'<div class="cookbook-layer" style="display:none;"></div>',
 							'<div class="hand-image-wrapper">',
 								'<img class="Large" style="display:none;" height="563" width="374" src="./images/hand_L.png">',
 								'<img class="Medium" style="display:none;" height="552" width="407" src="./images/hand_M.png">',
@@ -23,7 +24,9 @@
 		this.opts = $.extend({
 			idPreffix : 'sufa_' ,
 			tmpl : CanvasTmpl ,
-			defaultBrush : 'Medium'
+			defaultBrush : 'Medium',
+			width: 800 ,
+			height : 800
 		},options);
 
 		this.renderTo = renderTo;
@@ -31,8 +34,8 @@
 
 	Writer.prototype.prepareStage = function () {			   
 		var obj = {
-			width : 415 ,
-			height : 498 ,
+			width : this.opts.width ,
+			height : this.opts.height ,
 			layerCanvas : this.opts.idPreffix + '-layer' + new Date().getTime(),
 			writeCanvas : this.opts.idPreffix + '_write' + new Date().getTime(),
 			handCanvas : this.opts.idPreffix + '_hand' + new Date().getTime()
@@ -47,11 +50,28 @@
 
 		this.stageImage = this.container.find('img.stage').get(0);
 		this.handImage = this.container.find('div.hand-image-wrapper');
+		this.cookbook = this.container.find('div.cookbook-layer');
 	}
+		
 
 	Writer.prototype.initialize = function () {
 		this.prepareStage();
+		this.initializeCookbook();
 		this.initializeStrokeEngine();
+	}
+
+	Writer.prototype.initializeCookbook = function () {
+		var fontsize = Math.min(this.opts.width,this.opts.height),
+			top = parseInt(this.opts.height/2 ,10) - 5,
+			left = parseInt(- 30 * this.opts.width/ 800 ,10);
+		this.cookbook.css('top' ,top + 'px')
+			.css('left' ,left + 'px')
+			.css('color' ,'red')
+			.css('width' ,this.opts.width+ 'px')
+			.css('height' ,this.opts.height+ 'px')
+			.css('font-size' ,fontsize+ 'px')
+			.css('font-weight' ,'bold')
+			.css('font-family' ,'华文楷体');		
 	}
 
 	Writer.prototype.initializeStrokeEngine = function () {
@@ -73,6 +93,22 @@
 		});
 		strokeManager.isHandVisible = true;
 		strokeManager.start();
+	}
+
+	Writer.prototype.getStrokenManager = function(){
+		return strokeManager;
+	}
+
+	Writer.prototype.showCookbook = function(word){
+		word = word || ' ';
+		word = word[0];
+		this.cookbook.html(word).fadeIn('fast');
+		return this;
+	}
+
+	Writer.prototype.hideCookbook = function(){
+		this.cookbook.fadeOut('fast');
+		return this;
 	}
 
 	Writer.prototype.clear = function () {

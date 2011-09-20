@@ -132,10 +132,16 @@ define(function(require , exports , module){
 		return this.brushOpacity;
 	}
 
-	StrokeEngine.prototype.selectBrush = function (brushName) {
+	StrokeEngine.prototype.selectBrush = function (brushName , color) {
 		/// <summary>Select a brush</summary>
-		this.currentBrush = Brushes.getBrush(brushName);
+		this.currentBrush = Brushes.getBrush(brushName , color);
 		this.currentBrushName = brushName;
+		//this.createBrushWithOpacity(brushName, this.brushOpacity);
+	}
+
+	StrokeEngine.prototype.selectBrushColor = function (color) {
+		/// <summary>Select a brush</summary>
+		this.currentBrush = Brushes.getBrush(this.currentBrushName , color);
 		//this.createBrushWithOpacity(brushName, this.brushOpacity);
 	}
 

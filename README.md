@@ -1,1 +1,1 @@
-sufa app just for fun
+sufa demo inspired by shodo

@@ -38,10 +38,14 @@ div.sufa canvas.hand {
 	position: absolute;
 }
 
+div.sufa div.cookbook-layer {
+	z-index : 2;
+	position: absolute;
+}
+
 div.sufa .hand-image-wrapper {
 	z-index : 5;
 	left : 0px;
 	top : 0px;
 	position: absolute;
-	width : 410px;
 }
