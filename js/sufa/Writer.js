@@ -7,8 +7,14 @@
 		SimpleTmpl = require('third/SimpleTmpl');
 
 	var strokeEngine , strokeManager , 
-		CanvasTmpl = ['<div class="sufa" style="width:<%=width%>px;height"<%=height%>px;" >',
-							'<div class="stage"><img src="./images/hanshi.png" width="<%=width%>" height="<%=height%>"></div>',
+		CanvasTmpl = ['<div class="paper-wrapper" style="width:<%=bgWidth%>px;height:<%=bgHeight%>px;">',
+						'<div class="tool" style="left:<%=toolLeft%>px;top:<%=toolTop%>px;">',
+							'<input type="submit" class="btn bi" value="">',
+							'<input type="submit" class="btn mo" value="">',
+							'<input type="submit" class="btn zhi" value="">',
+							'<input type="submit" class="btn yan" value="">',
+						'</div>',
+					    '<div class="sufa" style="width:<%=width%>px;height:<%=height%>px;top:<%=topGap%>px;" >',
 							'<canvas id="<%=layerCanvas%>" class="layer" width="<%=width%>" height="<%=height%>"></canvas>',
 							'<canvas id="<%=writeCanvas%>" class="writer" width="<%=width%>" height="<%=height%>"></canvas>',
 							'<canvas id="<%=handCanvas%>" class="hand" width="<%=width%>" height="<%=height%>"></canvas>',	
@@ -18,31 +24,40 @@
 								'<img class="Medium" style="display:none;" height="552" width="407" src="./images/hand_M.png">',
 								'<img class="Small" style="display:none;" height="540" width="401" src="./images/hand_S.png">',
 							'</div>',
-						'</div'].join('');
+						'</div>',
+					  '</div>'].join('');
 
 	var Writer = function(renderTo , options){
 		this.opts = $.extend({
 			idPreffix : 'sufa_' ,
 			tmpl : CanvasTmpl ,
 			defaultBrush : 'Medium',
-			width: 800 ,
-			height : 800
+			bgWidth : 1024 ,
+			bgHeight:  784,
+			topGap : 110 ,
+			width : 715 ,
+			height : 580
 		},options);
 
 		this.renderTo = renderTo;
 	};
 
-	Writer.prototype.prepareStage = function () {			   
+	Writer.prototype.prepareStage = function () {	
 		var obj = {
 			width : this.opts.width ,
 			height : this.opts.height ,
+			bgWidth : this.opts.bgWidth ,
+			bgHeight: this.opts.bgHeight ,
 			layerCanvas : this.opts.idPreffix + '-layer' + new Date().getTime(),
 			writeCanvas : this.opts.idPreffix + '_write' + new Date().getTime(),
-			handCanvas : this.opts.idPreffix + '_hand' + new Date().getTime()
+			handCanvas : this.opts.idPreffix + '_hand' + new Date().getTime(),
+			topGap : this.opts.topGap ,
+			toolLeft : parseInt((this.opts.bgWidth - 280 )/2 ,10),
+			toolTop : parseInt(this.opts.bgHeight - 90 ,10)
 		};
 
 		this.container = $(this.renderTo);
-		this.container.html(SimpleTmpl(this.opts.tmpl , obj));
+		this.container.append(SimpleTmpl(this.opts.tmpl , obj));
 
 		this.layerCanvas = $('#'+obj.layerCanvas);
 		this.writeCanvas = $('#'+obj.writeCanvas);
