@@ -36,7 +36,7 @@
 			bgHeight:  784,
 			topGap : 110 ,
 			width : 715 ,
-			height : 580
+			height : 580 
 		},options);
 
 		this.renderTo = renderTo;

@@ -5,25 +5,32 @@
 	<title>sufa</title>
 	<link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/colorbox.css">
 	<script src="js/seajs/sea.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div id="write-paper"></div>
-	<div id="sufaPanel" class="sufa-panel-wrapper" style="display:none;">
-		<input class="clearBtn" type="button" value="清空"></input>
-		<div class="brushPanel">
-			<input class="brush" brushname="Small" type="button" value="小"></input>
-			<input class="brush" brushname="Medium" type="button" value="中"></input>
-			<input class="brush" brushname="Large" type="button" value="大"></input>
+	<div style='display:none'>
+		<div id='brushTools' class="tool-panel">
+			<input type="submit" brushname="Small" class="btn SmallBrush j_brush" value="">
+			<input type="submit" brushname="Medium" class="btn MediumBrush j_brush" value="">
+			<input type="submit" brushname="Large" class="btn LargeBrush j_brush" value="">
 		</div>
-		<div class="cookbookCtrl">
-			<input class="hideButton" type="button" value="隐藏"></input>
+	</div>
+	<div style='display:none'>
+		<div id='opacityTools' class="op-panel">
+			<input type="submit" opacity="0.25" class="btn opacity-25 j_opacity" value="">
+			<input type="submit" opacity="0.5" class="btn opacity-50 j_opacity" value="">
+			<input type="submit" opacity="0.75" class="btn opacity-75 j_opacity" value="">
+			<input type="submit" opacity="1.0" class="btn opacity-100 j_opacity" value="">
 		</div>
-		<div class="colorPanel">
-			<input class="color" type="text" value=""></input>
-			<input class="changeColorBtn" type="button" value="改颜色试试"></input>
-			<input class="opacity" type="text" value="1"></input>
-			<input class="changeOpacityBtn" type="button" value="不透明度(0-1)"></input>
+	</div>
+	<div style='display:none'>
+		<div id='colorTools' class="color-panel">
+			<input class="j_color" type="hidden" value=""></input>
+			<div class="bottom">
+				<input class="confirmButton j_confirm" type="button"></input>
+			</div>
 		</div>
 	</div>
 	<script type = 'text/javascript'>		
@@ -31,59 +38,63 @@
 			seajs.config({
 			  base: './js/',
 			  alias: {
-				'jquery': 'third/jquery-1.6.2.js'
+				'jquery': 'third/jquery-1.6.2.js',
+				'raphael': 'third/raphael-1.5.2.js',
 			  },
 			  charset: 'utf-8',
 			  timeout: 20000,
 			  debug: 1
 			});
 
-			var CreateCookbook = function(chars){
-				var t = '';
-				for (var i= 0; i < chars.length; i++){
-					t += '<input class="word" type="button" value="'+ chars[i] +'"></input>';
-				}			
-				return t;
-			}
-
-			seajs.use(['jquery' , 'sufa/Writer'], function($ , Writer) {
+			seajs.use(['jquery' , 'sufa/Writer' , 'third/jquery.colorbox' ,'third/colorpicker'], function($ , Writer , $Colorbox , rColorpicker) {
 				var writer = new Writer('#write-paper',{}),
-					$sufaPanel = $('#sufaPanel'),
-					$cookbook = $sufaPanel.find('.cookbookCtrl'),
-					$brushPanel = $sufaPanel.find('.brushPanel'),
-					$colorPanel =  $sufaPanel.find('.colorPanel'),
-					$color = $colorPanel.find('.color'),
-					$opacity = $colorPanel.find('.opacity');
+					$brushPanel = $('#brushTools'),
+					$color = $('#colorTools').find('.j_color'),
+					$opacityPanel = $('#opacityTools'),
+					defaultColor = '#000',
+					reg = /^#(.)\1(.)\2(.)\3$/,
+					colorPicker = rColorpicker.colorpicker(40, 20, 300, defaultColor ,document.getElementById('colorTools')),
+					getRgbStrByHsb = function(clr){
+						var rgbClr = rColorpicker.getRGB(clr);
+						return [rgbClr.r ,rgbClr.g ,rgbClr.b].join(',');
+					};
 					
-				$color.val('0,0,0');
+				$color.val(defaultColor);
 				
 				writer.initialize();
 
-				$cookbook.append(CreateCookbook('中华人民共和国'));
+				$brushPanel.delegate('.j_brush','click' , function(){
+					writer.getStrokenManager().selectBrush($(this).attr('brushname'),getRgbStrByHsb($color.val()));
+					$Colorbox.colorbox.close();
+				});	
 
-				$sufaPanel.find('.clearBtn').click(function(){
+				$opacityPanel.delegate('.j_opacity','click' , function(){
+					var op = $(this).attr('opacity');
+					writer.getStrokenManager().setBrushOpacity(op);
+					$Colorbox.colorbox.close();
+				});	
+
+				//笔
+				$Colorbox('#write-paper').find('input.bi').colorbox({width:"630px", inline:true, href:"#brushTools"});
+	
+				//墨
+				$Colorbox('#write-paper').find('input.mo').colorbox({width:"380px", inline:true, href:"#colorTools",onOpen:function(){
+					colorPicker.color($color.val());
+				}});
+
+				//纸
+				$Colorbox('#write-paper').find('input.zhi').bind('click' ,function(){
 					writer.clear();
 				});
 
-				$brushPanel.delegate('.brush','click' , function(){
-					writer.getStrokenManager().selectBrush($(this).attr('brushname'),$color.val());
-				});	
+				//砚
+				$Colorbox('#write-paper').find('input.yan').colorbox({width:"240px", inline:true, href:"#opacityTools"});
 
-				$cookbook.find('.hideButton').click(function(){
-					writer.hideCookbook();
-				});
-
-				$cookbook.delegate('.word','click' , function(){
-					writer.showCookbook($(this).val());
-				});
-
-				$colorPanel.find('input.changeColorBtn').bind('click' , function(){
-					var val = $(this).prev().val();
-					writer.getStrokenManager().selectBrushColor(val);
-				});
-
-				$colorPanel.find('input.changeOpacityBtn').bind('click' , function(){
-					writer.getStrokenManager().setBrushOpacity($opacity.val());
+				$('#colorTools').find('.j_confirm').click(function(){
+					var clr = colorPicker.color();
+					$color.val(clr);
+					writer.getStrokenManager().selectBrushColor(getRgbStrByHsb(clr));
+					$Colorbox.colorbox.close();
 				});
 			});
 		})();

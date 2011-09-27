@@ -81,3 +81,65 @@ div.sufa .hand-image-wrapper {
 	top : 0px;
 	position: absolute;
 }
+
+/* tool-panel */
+div.tool-panel .btn {
+	border:0px;
+	width:185px;
+	height:725px;
+	cursor:pointer;
+}
+
+div.tool-panel .SmallBrush {
+	background: url("../images/Small.png") no-repeat scroll 0 0 transparent;
+}
+
+div.tool-panel .MediumBrush {
+	background: url("../images/Medium.png") no-repeat scroll 0 0 transparent;
+}
+
+div.tool-panel .LargeBrush {
+	background: url("../images/Large.png") no-repeat scroll 0 0 transparent;
+}
+
+/* tool-panel */
+div.op-panel .btn {
+	border:0px;
+	width:40px;
+	height:40px;
+	cursor:pointer;
+}
+
+div.op-panel .opacity-25 {
+	background: url("../images/opacity-25.png") no-repeat scroll 0 0 transparent;
+}
+
+div.op-panel .opacity-50 {
+	background: url("../images/opacity-50.png") no-repeat scroll 0 0 transparent;
+}
+
+div.op-panel .opacity-75 {
+	background: url("../images/opacity-75.png") no-repeat scroll 0 0 transparent;
+}
+
+div.op-panel .opacity-100 {
+	background: url("../images/opacity-100.png") no-repeat scroll 0 0 transparent;
+}
+
+/* color-panel */
+.color-panel {
+	position: relative;
+}
+
+.color-panel .bottom{
+	width:162px;
+	height:64px;
+	margin: 0px auto;
+}
+
+.confirmButton {
+	border:0;
+	width:162px;
+	height:64px;
+	background: url("../images/confirm.png") no-repeat scroll 0 0 transparent;
+}
