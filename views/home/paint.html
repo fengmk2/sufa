@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<<- partial('common/header',{title:'书法应用'}) >>
+	<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/paint.css">
+	<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/colorbox.css">
+</head>
+<body>
+	<div id="write-paper"></div>
+	<div style='display:none'>
+		<div id='brushTools' class="tool-panel">
+			<input type="submit" brushname="Small" class="btn SmallBrush j_brush" value="">
+			<input type="submit" brushname="Medium" class="btn MediumBrush j_brush" value="">
+			<input type="submit" brushname="Large" class="btn LargeBrush j_brush" value="">
+		</div>
+	</div>
+	<div style='display:none'>
+		<div id='opacityTools' class="op-panel">
+			<input type="submit" opacity="0.25" class="btn opacity-25 j_opacity" value="">
+			<input type="submit" opacity="0.5" class="btn opacity-50 j_opacity" value="">
+			<input type="submit" opacity="0.75" class="btn opacity-75 j_opacity" value="">
+			<input type="submit" opacity="1.0" class="btn opacity-100 j_opacity" value="">
+		</div>
+	</div>
+	<div style='display:none'>
+		<div id='colorTools' class="color-panel">
+			<input class="j_color" type="hidden" value=""></input>
+			<div class="bottom">
+				<input class="confirmButton j_confirm" type="button"></input>
+			</div>
+		</div>
+	</div>
+	<div style='display:none'>
+		<div id='savePanel' class="save-panel">
+			<div class="publish">
+				<textarea></textarea>
+				<div class="oper">
+					<div class="btns">
+						<input class="j_save" type="button" value="确 定"></input> 
+					</div>
+				</div>
+			</div>
+			<div class="preview">
+				<img></img>			
+			</div>
+		</div>
+	</div>
+	<script id="writer-tmpl" type="text/tmpl">
+		<<- partial('home/writer') >>
+	</script>
+	<script type = 'text/javascript'>	
+		seajs.use(['page/home.paint'], function(paint) {
+			paint.init('#write-paper' ,{
+				tmpl : 'writer-tmpl',
+				toolEnable : true
+			});
+		});
+	</script>
+</body>
+</html>
+

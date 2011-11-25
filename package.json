@@ -1,0 +1,4 @@
+{
+   "name":"sufa-app",
+   "main":"./server.js"
+}

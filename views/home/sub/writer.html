@@ -1,0 +1,23 @@
+<div class="paper-wrapper" style="width:<%=bgWidth%>px;height:<%=bgHeight%>px;">
+<%if(toolEnable) {%>
+<div class="tool" style="left:<%=toolLeft%>px;top:<%=toolTop%>px;">
+	<input type="submit" class="btn bi" value="">
+	<input type="submit" class="btn mo" value="">
+	<input type="submit" class="btn zhi" value="">
+	<input type="submit" class="btn yan" value="">
+	<input type="submit" class="btn save" value="">
+</div>
+<%}%>
+<div class="sufa" style="width:<%=width%>px;height:<%=height%>px;top:<%=topGap%>px;" >
+	<canvas id="<%=layerCanvas%>" class="layer" width="<%=width%>" height="<%=height%>"></canvas>
+	<canvas id="<%=writeCanvas%>" class="writer" width="<%=width%>" height="<%=height%>"></canvas>
+	<canvas id="<%=handCanvas%>" class="hand" width="<%=width%>" height="<%=height%>"></canvas>	
+	<div class="cookbook-layer" style="display:none;"><span class="zhi"></span></div>
+	<div class="hand-image-wrapper">
+		<img class="Large" style="display:none;" height="563" width="374" src="./images/hand_L.png">
+		<img class="Medium" style="display:none;" height="552" width="407" src="./images/hand_M.png">
+		<img class="Small" style="display:none;" height="540" width="401" src="./images/hand_S.png">
+	</div>
+	<img class="stage" style="display:none;" style="display:none;">
+</div>
+</div>

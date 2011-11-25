@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<<- partial('common/header',{title:'书法应用'}) >>
+	<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/colorbox.css">
+	<script type="text/javascript" src="http://<<=Global_Site.domain>>/js/m3d/m3d.js"> </script> 
+	<style type="text/css"> 
+		html { 
+			overflow: hidden; 
+		} 
+		body { 
+			position: absolute; 
+			margin: 0px; 
+			padding: 0px; 
+			background: #000; 
+			width: 100%; 
+			height: 100%; 
+		} 
+		#screen { 
+			position: absolute; 
+			width: 100%; 
+			height: 100%; 
+			overflow: hidden; 
+			font-family: Segoe UI, Verdana, Arial, Sans-Serif; 
+			color: #fff; 
+			font-size: 13px; 
+		} 
+		#screen canvas { 
+			position: absolute; 
+			left: 0px; 
+			top: 0px; 
+			z-index :0;
+			width: 100%; 
+			height: 100%; 
+			background: #333; 
+		} 
+		
+		#screen .background { 
+			position: absolute; 
+			width: 100%; 
+			height: 100%; 
+			background: #000; 
+			opacity: 0.3; 
+		} 
+		
+		#infopanel { 
+	    position: absolute; 
+	    text-align: center; 
+	    top: 50px; 
+	    left: 30px; 
+	    width: 80px; 
+	    height: 150px; 
+	    color: black; 
+	    font-size: 9pt; 
+		} 
+		
+		#fps { 
+			font-size: 3em; 
+			font-weight: bold; 
+		} 
+		#npoly { 
+			font-size: 2em; 
+			font-weight: bold; 
+			margin-top: 10px; 
+		} 
+	</style> 
+</head>
+<body id="QZ_Body" class="bg_body mode_home_scene_index mode_profile_nav_big mode_no_headContainer">
+<img style="display:none;" src="http://sufa.cnodejs.net/files/f6266f24fa046631bd4088c7173107eb.png">
+<<- partial('common/top' , { showTools : false}) >>
+<div id="screen" style="display:none;"> 
+	<canvas id="canvas">Sorry, this demo requires a web browser which supports HTML5 canvas!</canvas> 
+	<div id="infopanel"> 
+		<div class="background"></div> 
+		<div class="content"> 
+			<div id="fps">00</div> 
+			<div>帧数</div> 
+			<div id="npoly">00</div> 
+			<div>多边形数量</div> 
+		</div> 
+	</div>
+</div> 
+<div id="loading" class="loading"><img width="124" heigth="124" src="http://<<=Global_Site.domain>>/images/loading.gif"></img></div>
+<script type="text/javascript"> 
+	 var canvas = document.getElementById("canvas"); 
+     if (!canvas.getContext){
+         window.location.href="http://"+Global_Site.domain+'/notSupport';
+     } else {
+     	seajs.use(['jquery','m3d/m3d', 'm3d/hotGeometry'],function($ , m3d , Geometry){   	
+            var imagesLoaded = 0 , initShowImageNum = 5;
+     		var params = { type: 'json' , page: 1 , size: 15 , sortType : 0};
+			$.ajax({
+				type: 'get',
+				url:  'http://'+Global_Site.domain+'/getWorks',
+				data: params,
+				success: function (res, textStatus, xhr) {
+					if(res.status==0) { 
+                        var works = res.data.works;             
+                        for(var i = 0 ;i< initShowImageNum; i++) {
+                            (function(work){
+                                 var image = new Image();
+                                    image.src ='http://'+ Global_Site.domain + '/' + work.path;
+                                    image.onload = function(){   
+                                        imagesLoaded ++;
+                                        delete image;
+                                        
+                                        if(imagesLoaded == initShowImageNum) {
+                                            $('#loading').hide();	
+						                    $('#screen').show();					
+                                            m3d.init(Geometry , res.data.works);
+                                        }
+                                    }            
+                            })(works[i]);          
+                        }
+					} else {
+						alert(res.statusText);  
+					}
+				},
+				error: function (xhr, textStatus, error) {
+					alert('网络连接出错了');
+				},
+				dataType: 'json'
+			});				
+     	});	
+     }
+</script>
+</body>
+</html>

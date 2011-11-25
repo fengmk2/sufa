@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta charset="utf-8" />
+	<title>sufa</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/colorbox.css">
+	<script src="js/seajs/sea.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="write-paper"></div>
+	<div style='display:none'>
+		<div id='brushTools' class="tool-panel">
+			<input type="submit" brushname="Small" class="btn SmallBrush j_brush" value="">
+			<input type="submit" brushname="Medium" class="btn MediumBrush j_brush" value="">
+			<input type="submit" brushname="Large" class="btn LargeBrush j_brush" value="">
+		</div>
+	</div>
+	<div style='display:none'>
+		<div id='opacityTools' class="op-panel">
+			<input type="submit" opacity="0.25" class="btn opacity-25 j_opacity" value="">
+			<input type="submit" opacity="0.5" class="btn opacity-50 j_opacity" value="">
+			<input type="submit" opacity="0.75" class="btn opacity-75 j_opacity" value="">
+			<input type="submit" opacity="1.0" class="btn opacity-100 j_opacity" value="">
+		</div>
+	</div>
+	<div style='display:none'>
+		<div id='colorTools' class="color-panel">
+			<input class="j_color" type="hidden" value=""></input>
+			<div class="bottom">
+				<input class="confirmButton j_confirm" type="button"></input>
+			</div>
+		</div>
+	</div>
+	<script type = 'text/javascript'>		
+		(function(){
+			seajs.config({
+			  base: './js/',
+			  alias: {
+				'jquery': 'third/jquery-1.6.2.js',
+				'raphael': 'third/raphael-1.5.2.js',
+			  },
+			  charset: 'utf-8',
+			  timeout: 20000,
+			  debug: 1
+			});
+
+			seajs.use(['jquery' , 'sufa/Writer' , 'third/jquery.colorbox' ,'third/colorpicker'], function($ , Writer , $Colorbox , rColorpicker) {
+				var writer = new Writer('#write-paper',{}),
+					$brushPanel = $('#brushTools'),
+					$color = $('#colorTools').find('.j_color'),
+					$opacityPanel = $('#opacityTools'),
+					defaultColor = '#000',
+					reg = /^#(.)\1(.)\2(.)\3$/,
+					colorPicker = rColorpicker.colorpicker(40, 20, 300, defaultColor ,document.getElementById('colorTools')),
+					getRgbStrByHsb = function(clr){
+						var rgbClr = rColorpicker.getRGB(clr);
+						return [rgbClr.r ,rgbClr.g ,rgbClr.b].join(',');
+					};
+					
+				$color.val(defaultColor);
+				
+				writer.initialize();
+
+				$brushPanel.delegate('.j_brush','click' , function(){
+					writer.getStrokenManager().selectBrush($(this).attr('brushname'),getRgbStrByHsb($color.val()));
+					$Colorbox.colorbox.close();
+				});	
+
+				$opacityPanel.delegate('.j_opacity','click' , function(){
+					var op = $(this).attr('opacity');
+					writer.getStrokenManager().setBrushOpacity(op);
+					$Colorbox.colorbox.close();
+				});	
+
+				//笔
+				$Colorbox('#write-paper').find('input.bi').colorbox({width:"630px", inline:true, href:"#brushTools"});
+	
+				//墨
+				$Colorbox('#write-paper').find('input.mo').colorbox({width:"380px", inline:true, href:"#colorTools",onOpen:function(){
+					colorPicker.color($color.val());
+				}}); 
+
+				//纸
+				$Colorbox('#write-paper').find('input.zhi').bind('click' ,function(){
+					writer.clear();
+				});
+
+				//砚
+				$Colorbox('#write-paper').find('input.yan').colorbox({width:"240px", inline:true, href:"#opacityTools"});
+
+				$('#colorTools').find('.j_confirm').click(function(){
+					var clr = colorPicker.color();
+					$color.val(clr);
+					writer.getStrokenManager().selectBrushColor(getRgbStrByHsb(clr));
+					$Colorbox.colorbox.close();
+				});
+			});
+		})();
+	</script>
+</body>
+</html>
+

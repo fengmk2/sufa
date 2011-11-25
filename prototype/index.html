@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta charset="utf-8" />
+	<title>sufa</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/seajs/sea.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="write-paper"></div>
+	<div id="sufaPanel" class="sufa-panel-wrapper">
+		<input class="clearBtn" type="button" value="清空"></input>
+		<div class="brushPanel">
+			<input class="brush" brushname="Small" type="button" value="小"></input>
+			<input class="brush" brushname="Medium" type="button" value="中"></input>
+			<input class="brush" brushname="Large" type="button" value="大"></input>
+		</div>
+		<div class="cookbookCtrl">
+			<input class="hideButton" type="button" value="隐藏"></input>
+		</div>
+		<div class="colorPanel">
+			<input class="color" type="text" value=""></input>
+			<input class="changeColorBtn" type="button" value="改颜色试试"></input>
+			<input class="opacity" type="text" value="1"></input>
+			<input class="changeOpacityBtn" type="button" value="不透明度(0-1)"></input>
+		</div>
+	</div>
+	<script type = 'text/javascript'>		
+		(function(){
+			seajs.config({
+			  base: './js/',
+			  alias: {
+				'jquery': 'third/jquery-1.6.2.js'
+			  },
+			  charset: 'utf-8',
+			  timeout: 20000,
+			  debug: 1
+			});
+
+			var CreateCookbook = function(chars){
+				var t = '';
+				for (var i= 0; i < chars.length; i++){
+					t += '<input class="word" type="button" value="'+ chars[i] +'"></input>';
+				}			
+				return t;
+			}
+
+			seajs.use(['jquery' , 'sufa/Writer'], function($ , Writer) {
+				var writer = new Writer('#write-paper',{}),
+					$sufaPanel = $('#sufaPanel'),
+					$cookbook = $sufaPanel.find('.cookbookCtrl'),
+					$brushPanel = $sufaPanel.find('.brushPanel'),
+					$colorPanel =  $sufaPanel.find('.colorPanel'),
+					$color = $colorPanel.find('.color'),
+					$opacity = $colorPanel.find('.opacity');
+					
+				$color.val('0,0,0');
+				
+				writer.initialize();
+
+				$cookbook.append(CreateCookbook('中华人民共和国'));
+
+				$sufaPanel.find('.clearBtn').click(function(){
+					writer.clear();
+				});
+
+				$brushPanel.delegate('.brush','click' , function(){
+					writer.getStrokenManager().selectBrush($(this).attr('brushname'),$color.val());
+				});	
+
+				$cookbook.find('.hideButton').click(function(){
+					writer.hideCookbook();
+				});
+
+				$cookbook.delegate('.word','click' , function(){
+					writer.showCookbook($(this).val());
+				});
+
+				$colorPanel.find('input.changeColorBtn').bind('click' , function(){
+					var val = $(this).prev().val();
+					writer.getStrokenManager().selectBrushColor(val);
+				});
+
+				$colorPanel.find('input.changeOpacityBtn').bind('click' , function(){
+					writer.getStrokenManager().setBrushOpacity($opacity.val());
+				});
+			});
+		})();
+	</script>
+</body>
+</html>
+

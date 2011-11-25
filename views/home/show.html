@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<<- partial('common/header',{title:'书法应用首页'}) >>
+	<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/colorbox.css">
+</head>
+<body id="QZ_Body" class="bg_body mode_home_scene_index mode_profile_nav_big mode_no_headContainer">
+<img style="display:none;" src="http://sufa.cnodejs.net/files/f6266f24fa046631bd4088c7173107eb.png">
+<<- partial('common/top' , { showTools : false}) >>
+<div id="works" class="sfCont"></div> 
+<script id="worksTmpl"  type="text/tmpl">
+	<% for(var i=0;i<works.length;i++) { var user = works[i].user,dignum = works[i].dignum ? works[i].dignum : 0 , uname = CUSER.blogType + '_' + window.CUSER.name , diggDisable= works[i].digusers ? works[i].digusers[uname] : false , smallPath = 'files/small/' + works[i].fileName.replace('png','jpg');%>
+	<div  username="<%=user.name%>" class="item mark col-0"> 
+	  <a target="_blank" class="image j_image" href="http://<%=Global_Site.domain%>/<%=works[i].path%>"><img  width="124" heigth="124" src="http://<%=Global_Site.domain%>/images/loading.gif" class="loading"><img width="182" height="148" class="j_work" src="http://<%=Global_Site.domain%>/<%=smallPath%>"></a><strong class="title"></strong><span><%if(window.IsLogin){%><a class="j_digg <%if(diggDisable){%>disable<%}%>" wid="<%=works[i].id%>" href="javascript:void(0);" onclick="return false;"><span class="ico ico-dig"></span><span class="j_digg_count"><%=dignum%></span></a><%}%><%=works[i].status%></span>
+	  <div class="remarked"> <a target=_blank href="<%=user.t_url%>"><img src="<%=user.profile_image_url%>" class="avatar"></a>来自<%=Sufa.whichApp(works[i].type)%>的<a href="<%=user.t_url%>" target=_blank><%=user.name%></a><%if(works[i].t_url){%>发了一条<a class="myboard" href="<%=works[i].t_url%>">微博</a><%}else{%>创建了一幅作品<%}%></div>
+	  <ul class="comments">
+	  </ul>
+	</div>
+	<%}%>
+</script>
+<script id="usersTmpl" type="text/tmpl">
+	<h2><span class="meta"><%=CUSER.location%></span><%=CUSER.name%></h2>
+    <div class="meta"><a href="/7/followers"><%=CUSER.followers_count%>粉丝</a>&nbsp;&nbsp;<a href="/7/followings">关注<%=CUSER.following%>人</a></div>
+    <div class="avatar_o"><img alt="<%=CUSER.name%>" src="<%=CUSER.profile_image_url%>"></div>     
+    <%if(users.length>0){%>
+	    <h3>这些人也在使用</h3>
+    	<div class="followers">
+    		<%for(var i=0;i<users.length;i++) { %>
+				<a title="<%=users[i].name%>"><img width="32" height="32" alt="心力克" src="<%=users[i].profile_image_url%>" class="img"></a><%=users[i].name%>
+			<%}%>
+	    </div>
+	<%}%>
+</script>
+<< if(hasMore) {>>
+<div style="display:none;">
+	<div id="loadMore" class="twiLoad" style="display:none;"><a class="fuc" href="javascript:void(0);">查看更多</a></div>
+</div>
+<<}>>
+<div id="loading" class="loading"><img width="124" heigth="124" src="http://<<=Global_Site.domain>>/images/loading.gif"></img></div>
+<div style="clear:both;"></div>
+<canvas id="testCanvas"></canvas>
+<script type = 'text/javascript'>	
+	seajs.use(['page/home.show','jquery'], function(page,$) {
+		page.init({
+	   		page : <<=page>>,
+			size : <<=size>> ,
+			hasMore: <<=hasMore>>,
+			tmpl : 'worksTmpl',
+			appdendTo :'#works',
+			dataUrl : 'http://'+Global_Site.domain+'/getWorks',
+			autoload : true ,
+			params : {sortType:<<=sortType>>},
+	   });
+       
+       var testCanvas = document.getElementById("testCanvas"); 
+        if (!testCanvas.getContext){
+            $('#3dShow').remove();
+        }
+        
+        $('#testCanvas').remove();
+	});
+</script>
+<<- partial('common/footer') >>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<<- partial('common/header',{title:'书法应用'}) >>
+	<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/colorbox.css">
+	<style>
+		.contentContainer {
+		    margin: 0 auto;
+		    width: 980px;
+		}
+		#exampleWrapper {
+		    border-top: 1px solid #FFFFFF;
+		    display: none;
+		}
+		.feedWrapper {
+			padding-top: 20px;
+		}
+		.designPaneWindow {
+		    background: url("../images/designPaneBottom.png") no-repeat scroll left bottom transparent;
+		    float: left;
+		    padding-bottom: 8px;
+		    width: 618px;
+		}
+		.designPaneTop {
+		    background: url("../images/designPaneTop.png") no-repeat scroll 0 0 transparent;
+		    height: 8px;
+		    width: 618px;
+		}
+		#showMid {
+		    min-height: 250px;
+		}
+		.designPaneMid {
+			background: url("../images/designPaneMid.png") repeat-y scroll 0 0 transparent;
+		    min-height: 100px;
+		    padding: 5px 10px;
+		    position: relative;
+		    width: 598px;
+		}
+		.feedRightIntro {
+		    float: left;
+		    font-size: 14px;
+		    padding: 10px 20px 0;
+		    width: 300px;
+		}
+	</style>
+</head>
+<body id="QZ_Body" class="bg_body mode_home_scene_index mode_profile_nav_big mode_no_headContainer">
+<img style="display:none;" src="http://sufa.cnodejs.net/files/f6266f24fa046631bd4088c7173107eb.png">
+<<- partial('common/top' , { showTools : false}) >>
+<div class="contentContainer">
+	<div id="exampleWrapper" style="display: block;">
+		<div class="feedWrapper">
+		    <div class="designPaneWindow">
+		         <div class="designPaneTop"></div>
+		         <div id="showMid" class="designPaneMid">
+                    <!-- UY BEGIN -->
+                    <div id="uyan_frame"></div>
+                    <script type="text/javascript" id="UYScript" src="http://uyan.cc/js/iframe.js?UYUserId=944" async=""></script>
+                    <!-- UY END -->   
+		         </div>             
+		    </div>
+		    <div class="feedRightIntro">
+		        <div class="feedIntroLine">您可以在左侧试用评论功能或是写下反馈，您的意见是对我莫大的支持。<br><br>hpf1908@gmail.com <br></div>
+		    </div>
+		    <div class="clear"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

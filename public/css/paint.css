@@ -1,0 +1,138 @@
+body {overflow:hidden;}
+.paper-wrapper {margin-left:auto; margin-right:auto;position: relative;top:0px;background-image:url('../images/bg-1.jpg');background-repeat:no-repeat;}
+.paper-wrapper .tool{top:80px;position: absolute;}
+.tool .btn {border:0px;width:75px;height:75px;cursor:pointer;}
+.tool .bi {
+	background: url("../images/bi.png") no-repeat scroll 0 0 transparent;
+}
+.tool .mo {
+	background: url("../images/mo.png") no-repeat scroll 0 0 transparent;
+}
+.tool .zhi {
+	background: url("../images/zhi.png") no-repeat scroll 0 0 transparent;
+}
+.tool .yan {
+	background: url("../images/yan.png") no-repeat scroll 0 0 transparent;
+}
+.tool .save {
+	background: url("../images/cun.png") no-repeat scroll 0 0 transparent;
+}
+.sufa * {
+	z-index : 2;
+}
+.sufa {
+	margin-left:auto; 
+	margin-right:auto;
+	top:160px;
+	position: relative;
+}
+.sufa canvas.layer {
+	z-index : 3;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+.sufa canvas.writer {
+	z-index : 4;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+.sufa canvas.hand {
+	z-index : 6;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+.sufa div.cookbook-layer {
+	z-index : 2;
+	/*position: absolute;*/
+	margin: 0px auto;
+	color:red;
+    position:relative;
+    font-family : 楷体,华文行楷,隶书;
+    font-weight : bold;
+}
+.sufa div.cookbook-layer span.zhi { display:block;position:absolute;display: block;left: -70px;position: absolute;top: -70px;}
+.sufa .hand-image-wrapper {
+	z-index : 5;
+	left : 0px;
+	top : 0px;
+	position: absolute;
+}
+/* tool-panel */
+.tool-panel .btn {
+	border:0px;
+	width:185px;
+	height:725px;
+	cursor:pointer;
+}
+.tool-panel .SmallBrush {
+	background: url("../images/Small.png") no-repeat scroll 0 0 transparent;
+}
+.tool-panel .MediumBrush {
+	background: url("../images/Medium.png") no-repeat scroll 0 0 transparent;
+}
+.tool-panel .LargeBrush {
+	background: url("../images/Large.png") no-repeat scroll 0 0 transparent;
+}
+/* tool-panel */
+.op-panel .btn {
+	border:0px;
+	width:40px;
+	height:40px;
+	cursor:pointer;
+}
+.op-panel .opacity-25 {
+	background: url("../images/opacity-25.png") no-repeat scroll 0 0 transparent;
+}
+.op-panel .opacity-50 {
+	background: url("../images/opacity-50.png") no-repeat scroll 0 0 transparent;
+}
+.op-panel .opacity-75 {
+	background: url("../images/opacity-75.png") no-repeat scroll 0 0 transparent;
+}
+.op-panel .opacity-100 {
+	background: url("../images/opacity-100.png") no-repeat scroll 0 0 transparent;
+}
+/* color-panel */
+.color-panel {
+	position: relative;
+}
+.color-panel .bottom{
+	width:162px;
+	height:64px;
+	margin: 0px auto;
+}
+.confirmButton {
+	border:0;
+	width:162px;
+	height:64px;
+	background: url("../images/confirm.png") no-repeat scroll 0 0 transparent;
+}
+/* save-panel */
+.save-panel .publish {
+	/* float:left; */
+}
+.save-panel .publish .oper {
+	margin-top:2px;
+	height:30px;
+}
+.save-panel .publish .btns {
+	float:right;
+}
+.save-panel .publish textarea {
+	width: 350px;
+	height : 100px;
+	font-size: 14pt;
+	font-family: '微软雅黑,宋体'
+}
+.save-panel .preview {
+	margin-top: 5px;
+}
+.save-panel .preview img{
+	border : 2px solid;
+	/* float:left; */
+}
+#savePanel .chk {margin-right:3px;margin-top:3px;height:5px;display:block;float:right;}
+#savePanel .confirm{display:block;float:right;}

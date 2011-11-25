@@ -1,0 +1,263 @@
+<div class="lay_topfixed">
+	<div class="lay_topfixed_inner">
+		<div id="tools-container" class="gb_toolbar">
+			<div class="wrap clearfix">			
+				<a style="width: 86px;" class="logo fl" href="http://<<=Global_Site.domain>>/"><span class="none">书法</span></a>				
+				<div class="banner fl">
+					<ul id="tools" >
+						<< if(!showTools) {>>
+							<li id="showNew" class="link_extend << if(sortType==0){>>on<<}>>">						 			
+								<a class="a_txt j_new" href="http://<<=Global_Site.domain>>/new"><span>最新作品</span></a>
+							</li>
+							<li id="showHot" class="link_extend << if(sortType==1){>>on<<}>>">				
+								<a class="a_txt j_hot" href="http://<<=Global_Site.domain>>/hot"><span>最热作品</span></a>
+							</li>
+							<li id="3dShow" class="link_extend << if(sortType==2){>>on<<}>>">				
+								<a class="a_txt j_3dshow" href="http://<<=Global_Site.domain>>/3dshow"><span>书法画廊</span></a>
+							</li>
+						<<}>>
+						<< if(showTools) {>>
+						<li class="link_extend" data-box = "toolbtn-1">				
+							<a class="a_txt" onclick="return false;" href="javascript:void(0);"><span>大小</span></a>
+							<a class="a_arrow" onclick="return false;" href="javascript:;"><span><strong></strong></span></a>
+						</li>
+						<li class="link_extend" data-box = "toolbtn-2">				
+							<a class="a_txt" onclick="return false;" href="javascript:void(0);"><span>颜色</span></a>
+							<a class="a_arrow" onclick="return false;" href="javascript:;"><span><strong></strong></span></a>
+						</li>
+						<li class="link_extend" data-box = "toolbtn-3">				
+							<a class="a_txt" onclick="return false;" href="javascript:void(0);"><span>透明度</span></a>
+							<a class="a_arrow" onclick="return false;" href="javascript:;"><span><strong></strong></span></a>
+						</li>
+						<li class="link_extend" data-box = "toolbtn-4">				
+							<a class="a_txt" onclick="return false;" href="javascript:void(0);"><span>临摹</span></a>
+							<a class="a_arrow" onclick="return false;" href="javascript:;"><span><strong></strong></span></a>
+						</li>
+						<<}>>				
+						<li class="link_extend" data-box = "toolbtn-5">				
+							<a class="a_txt" href="http://<<=Global_Site.domain>>/create"><span><< if(showTools){>>纸张<<}else{>>开始练习<<}>></span></a>
+							<a class="a_arrow" onclick="return false;" href="javascript:;"><span><strong></strong></span></a>
+						</li>
+						<li class="link_extend">				
+							<a class="a_txt" href="http://<<=Global_Site.domain>>/advice"><span>建议与反馈</span></a>
+						</li>
+						<!--
+						<li class="link_extend" data-box = "toolbtn-6">				
+							<a class="a_txt" target=_blank href="<<=Global_User.sina>>"><span>官方微博</span></a>
+							<a class="a_arrow" onclick="return false;" href="javascript:;"><span><strong></strong></span></a>
+						</li>
+						-->
+                        << if(!showTools) {>>
+							<a class="a_txt" target=_blank href="http://cnodejs.org"><span>cnodejs.net</span></a>
+						<<}>>
+						<< if(showTools) {>>
+						<li class="link_extend">				
+							<a class="a_txt j_clear" onclick="return false;" href="javascript:void(0);"><span>重写</span></a>
+						</li>
+						<< if(IsLogin) {>>
+						<li class="link_extend">				
+							<a title="保存" class="a_txt j_save" onclick="return false;" href="javascript:void(0);"><span>保存(无背景)</span></a>
+						</li>
+                        <li class="link_extend">    			
+							<a title="保存" class="a_txt j_save_withback" onclick="return false;" href="javascript:void(0);"><span>保存(有背景)</span></a>
+						</li>
+						<<}>>	
+						<<}>>		
+					</ul>
+				</div>
+				<<- partial('common/avatar') >>
+				<< if(showTools) {>>
+				<div id="toolbtn-1" class="appbox pop_box pop_bg pop_bor none" onclick="return false;">
+					<div class="inner pop_bor2 clearfix box_fold brush">
+						<div class="applist">
+							<ul class="clearfix" id="ulRouteAppList">
+								<li>
+									<div class="app_item">
+										<a class="j_brush" brushname="Large" onclick="return false;" href="javascript:void(0);"><i class="icon_baseapp icon_large brush"></i><span>大</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_brush" brushname="Medium" onclick="return false;" href="javascript:void(0);"><i class="icon_baseapp icon_mediumn brush"></i><span>中</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_brush" brushname="Small" onclick="return false;" href="javascript:void(0);"><i class="icon_baseapp icon_small brush"></i><span>小</span></a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div> <!-- end divRouteAppBoxFolder -->
+				</div> <!-- end appbox -->
+				<div id="toolbtn-2" class="appbox pop_box pop_bg pop_bor none" onclick="return false;">
+					<div class="inner pop_bor2 clearfix box_fold" id="divRouteAppBoxFolder">
+						<div class="applist">
+							<ul class="clearfix" id="ulRouteAppList">
+								<li>
+									<div class="app_item">
+										<a class="j_color" color="255,0,0" title="红" onclick="return false;" href="javascript:void(0);"><i class="red"></i><span>红</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_color" color="255,255,0" onclick="return false;" href="javascript:void(0);"><i class="yellow"></i><span>黄</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_color" color="0,0,255" onclick="return false;" href="javascript:void(0);"><i class="blue"></i><span>蓝</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_color" color="0,255,0" onclick="return false;" href="javascript:void(0);"><i class="green"></i><span>绿</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_color" color="0,0,0" title="黑" onclick="return false;" href="javascript:void(0);"><i class="black"></i><span>黑</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_color" color="255,255,255" title="白" onclick="return false;" href="javascript:void(0);"><i class="white"></i><span>白</span></a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div> <!-- end divRouteAppBoxFolder -->
+				</div> <!-- end appbox -->
+				<div id="toolbtn-3" class="appbox pop_box pop_bg pop_bor none" onclick="return false;">
+					<div class="inner pop_bor2 clearfix box_fold opacity">
+						<div class="applist">
+							<ul class="clearfix" id="ulRouteAppList">
+								<li>
+									<div class="app_item">
+										<a class="j_opacity" opacity="0.25" onclick="return false;" href="javascript:void(0);"><i class="opacity opacity-25"></i><span>25</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_opacity" opacity="0.50" onclick="return false;" href="javascript:void(0);"><i class="opacity opacity-50"></i><span>50</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_opacity" opacity="0.75" onclick="return false;" href="javascript:void(0);"><i class="opacity opacity-75"></i><span>75</span></a>
+									</div>
+								</li>
+								<li>
+									<div class="app_item">
+										<a class="j_opacity" opacity="1.0" onclick="return false;" href="javascript:void(0);"><i class="opacity opacity-100"></i><span>100</span></a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div> <!-- end divRouteAppBoxFolder -->
+				</div> <!-- end appbox -->
+				<div id="toolbtn-4" class="appbox pop_box pop_bg pop_bor none" onclick="return false;">
+					<div class="inner pop_bor2 clearfix box_fold opacity">
+						<div class="applist">
+							<ul class="clearfix" id="ulRouteAppList">
+								<< for(var i=0;i<zhi.length;i++) {>>
+								<li>
+									<div class="app_item">
+										<a class="j_zhi" zhi="<<=zhi[i]>>" onclick="return false;" href="javascript:void(0);"><span class="learn"><<=zhi[i]>></span><span><<=zhi[i]>></span></a>
+									</div>						
+								</li>
+								<<}>>
+								<li>
+									<div class="app_item">
+										<a class="j_zhi" zhi="none" onclick="return false;" href="javascript:void(0);"><i></i><span>取消</span></a>
+									</div>						
+								</li>
+							</ul>
+						</div>
+					</div> <!-- end divRouteAppBoxFolder -->
+				</div> <!-- end appbox -->
+				<<}>>
+				<div id="toolbtn-5" class="appbox pop_box pop_bg pop_bor none" onclick="return false;">
+					<div class="inner pop_bor2 clearfix box_fold opacity paper">
+						<div class="applist">
+							<ul class="clearfix" id="ulRouteAppList">
+								<li class="paper">
+									<div class="app_item">
+										<a class="j_paper" index="1" onclick="return false;" href="javascript:void(0);"><i class="paper paper1"></i></a>
+									</div>
+									
+								</li>
+								<li class="paper">
+									<div class="app_item">
+										<a class="j_paper" index="2" onclick="return false;" href="javascript:void(0);"><i class="paper paper2"></i></a>
+									</div>
+								</li>
+                                <li class="paper">
+    								<div class="app_item">
+										<a class="j_paper" index="3" onclick="return false;" href="javascript:void(0);"><i class="paper paper3"></i></a>
+									</div>
+								</li>
+                                <li class="paper">
+    								<div class="app_item">
+										<a class="j_paper" index="4" onclick="return false;" href="javascript:void(0);"><i class="paper paper4"></i></a>
+									</div>
+								</li>
+                                <li class="paper">
+    								<div class="app_item">
+										<a class="j_paper" index="5" onclick="return false;" href="javascript:void(0);"><i class="paper paper5"></i></a>
+									</div>
+								</li>
+                                <li class="paper">
+        							<div class="app_item">
+										<a class="j_paper" index="6" onclick="return false;" href="javascript:void(0);"><i class="paper paper6"></i></a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div> <!-- end divRouteAppBoxFolder -->
+				</div> <!-- end appbox -->
+				<div id="toolbtn-6" class="appbox pop_box pop_bg pop_bor none" onclick="return false;">
+					<div class="inner pop_bor2 clearfix box_fold about">
+						<div class="applist">
+							<ul class="clearfix">
+								<li class="about">
+									<div class="app_item">
+										<a href="javascript:void(0);" onclick="window.open('<<=Global_User.sina>>');"><i class="about siteuser" style="background:url(<<=Global_User.signatureUrl>>) no-repeat;"></i></a>
+									</div>							
+								</li>
+							</ul>
+						</div>
+					</div> <!-- end divRouteAppBoxFolder -->
+				</div> <!-- end appbox -->
+			</div>
+		</div>
+	</div> <!-- end lay_topfixed_inner -->
+</div> <!-- end lay_topfixed -->
+<script language="javascript">
+<!--
+	seajs.use('jquery',function($){
+		$('#tools').delegate('li' , 'mouseover' , function(){
+			var $el = $(this),
+				boxid = $el.attr('data-box') ,
+				tools = $('#'+ boxid);
+			tools.removeClass('none');
+		}).delegate('li' , 'mouseout' , function(){
+			var $el = $(this),
+				boxid = $el.attr('data-box') ,
+				tools = $('#'+ boxid);
+			tools.addClass('none');
+		});
+		$('#tools-container').delegate('div.appbox' , 'mouseover', function(){
+			$(this).removeClass('none');
+		}).delegate('div.appbox' , 'mouseout', function(){
+			$(this).addClass('none');
+		});
+		
+		<< if(!showTools) {>>
+			$('#toolbtn-5').delegate('.j_paper','click',function(){
+				window.location.href = 'http://<<=Global_Site.domain>>/create?paper=' + $(this).attr('index');
+			});
+		<<}>>
+	});	
+//-->
+</script>

@@ -1,0 +1,33 @@
+<title><<=title>></title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/style.css">
+<script src="http://<<=Global_Site.domain>>/js/seajs/sea.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	window.CUSER = <<-JSON.stringify(CUSER)>>;
+	window.Global_Site = <<-JSON.stringify(Global_Site)>>;
+	window.IsLogin = <<=IsLogin>>;
+	window.Sufa = {
+		adaptWeiboName : function(blogtype){			
+			return this.whichApp(blogtype) + '微博';
+		},
+        whichApp : function(blogtype){
+            if(blogtype =='tqq')
+    			return '腾讯';
+            else if(blogtype =='tsohu') 
+                return '搜狐';
+			return '新浪';
+        }
+	};
+	(function(){
+		seajs.config({
+		  base: './js/',
+		  alias: {
+			'jquery': 'third/jquery-1.6.2.js',
+			'raphael': 'third/raphael-1.5.2.js',
+		  },
+		  charset: 'utf-8',
+		  timeout: 20000,
+		  debug: 1
+		});
+	})();
+</script>

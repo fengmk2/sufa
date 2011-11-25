@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<<- partial('common/header',{title:'书法'}) >>
+	<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/paint.css">
+	<link rel="stylesheet" href="http://<<=Global_Site.domain>>/css/colorbox.css">
+</head>
+<body>
+    <img style="display:none;" src="http://sufa.cnodejs.net/files/f6266f24fa046631bd4088c7173107eb.png">
+	<<- partial('common/top' ,{ zhi : ['永','侠','华','李','鹏','飞','姜','黄'] ,showTools : true}) >>
+    <canvas id="testCanvas"  style="display:none;"> </canvas>
+    <div id="loading" class="loading"><img width="124" heigth="124" src="http://<<=Global_Site.domain>>/images/loading.gif"></img></div>
+	<div id="write-paper"></div>
+	<div style='display:none'>
+		<div id='colorTools' class="color-panel">
+			<input class="j_color" type="hidden" value=""></input>
+			<div class="bottom">
+				<input class="confirmButton j_confirm" type="button"></input>
+			</div>
+		</div>
+	</div>
+	<div style='display:none'>
+		<div id='savePanel' class="save-panel">
+			<div class="publish">
+				<textarea></textarea>
+				<div class="oper">
+					<div class="btns">							
+						<input class="confirm j_save" type="button" value="确 定"></input> 	
+						<<if(IsLogin){>>
+							<label id="check_twitter" class="chk"><input name="check_twitter" class="j_check" type="checkbox"></input><span class="j_tip"></span></label>
+						<<}>>
+					</div>
+				</div>
+			</div>
+			<div class="preview">
+				<img></img>			
+			</div>
+		</div>
+	</div>
+	<script id="writerTmpl" type="text/tmpl">
+		<<- partial('home/sub/writer') >>
+	</script>
+	<script type = 'text/javascript'>	
+		seajs.use(['page/home.create'], function(paint) {
+			paint.init('#write-paper',{
+				tmpl : 'writerTmpl',
+				toolEnable : false ,
+				paper : <<=paper>>
+			});
+		});
+	</script>
+<<- partial('common/footer') >>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<< if(IsLogin) {>>
+<div class="userinfo fr">
+	<a href="<<=CUSER.t_url>>" target=_blank class="userinfo_tit">
+		<span class="user_ava"><img alt="头像" src="<<=CUSER.profile_image_url>>"></span>
+		<span class="user_name"><<=CUSER.name>></span>
+	</a>
+	<a class="logout" href="http://<<=Global_Site.domain>>/logout" title="退出登录">[退出]</a>
+</div>
+<< } else {>>
+<div class="userinfo fr">
+	<a href="http://<<=Global_Site.domain>>/login?blogtype=tqq" title="登录腾讯微博"class="userinfo_tit">
+		<span class="user_ava"><img alt="qq" src="http://<<=Global_Site.domain>>/images/qq_32.png"></span>
+		<span class="user_name">登录腾讯微博</span>
+	</a>
+	<a href="http://<<=Global_Site.domain>>/login?blogtype=tsina" title="登录新浪微博" class="userinfo_tit">
+		<span class="user_ava"><img alt="sina" src="http://<<=Global_Site.domain>>/images/sina_32.png"></span>
+		<span class="user_name">登录新浪微博</span>
+	</a>
+	<a href="http://<<=Global_Site.domain>>/login?blogtype=tsohu" title="登录搜狐微博" class="userinfo_tit">
+		<span class="user_ava"><img alt="sina" src="http://<<=Global_Site.domain>>/images/sohu_32.png"></span>
+		<span class="user_name">登录搜狐微博</span>
+	</a>
+</div>
+<<}>>
