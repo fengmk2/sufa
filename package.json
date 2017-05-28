@@ -5,15 +5,28 @@
   "repository": "git@github.com:hpf1908/sufa.git",
   "author": "hpf1908<hpf1908@gmail.com> (http://nrblog.cnodejs.net)",
   "main": "./server.js",
-  "contributors": [ 
-    { "name": "hpf1908", "email": "hpf1908@gmail.com" }
+  "contributors": [
+    {
+      "name": "hpf1908",
+      "email": "hpf1908@gmail.com"
+    }
   ],
   "dependencies": {
     "express": ">= 2.3.2",
     "ejs": ">= 0.1.0",
-    "node-weibo" :"0.1.0"
+    "node-weibo": "0.1.0",
+    "snyk": "^1.31.0"
   },
-  "keywords": ["shufa", "sufa"],
-  "repository": "git@github.com:hpf1908/sufa.git",
-  "engines": { "node": ">= 0.4.1" }
+  "keywords": [
+    "shufa",
+    "sufa"
+  ],
+  "engines": {
+    "node": ">= 0.4.1"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
